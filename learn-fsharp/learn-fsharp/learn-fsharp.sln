@@ -1,0 +1,30 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.31205.134
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Monad", "Monad", "{8E98A6E0-2B0B-4998-AEA9-19B469540065}"
+EndProject
+Project("{F2A71F9B-5D33-465A-A702-920D77279786}") = "Grokking", "Grokking\Grokking.fsproj", "{56D23223-987F-4213-A2AF-382C71007B8E}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{56D23223-987F-4213-A2AF-382C71007B8E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{56D23223-987F-4213-A2AF-382C71007B8E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{56D23223-987F-4213-A2AF-382C71007B8E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{56D23223-987F-4213-A2AF-382C71007B8E}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{56D23223-987F-4213-A2AF-382C71007B8E} = {8E98A6E0-2B0B-4998-AEA9-19B469540065}
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {C9870118-2A1D-4503-9A1A-7FC622C6DFC5}
+	EndGlobalSection
+EndGlobal
