@@ -1,4 +1,11 @@
 ﻿type PriceConfig = { Percentage: double; Price: double }
+
+type ConfigResult =
+    { Part: double
+      Count: int
+      Total: double
+      RealPercentage: double }
+
 let totalCap = 541502.0
 
 let configs =
@@ -7,10 +14,7 @@ let configs =
       { Percentage = 0.4; Price = 21.0 }
       { Percentage = 0.3; Price = 15.0 } ]
 
-type ConfigResult =
-    { Part: double
-      Count: int
-      Total: double }
+
 
 let GenerateConfig () =
     let mutable carry = 0.0
@@ -29,11 +33,14 @@ let GenerateConfig () =
                     target <- target - p
                     cnt <- cnt + 1
 
+                cnt <- cnt - 1
                 carry <- target + p
+                let total = p * (cnt |> double)
 
                 { Part = p
-                  Count = cnt - 1
-                  Total = p * ((cnt - 1) |> double) })
+                  Count = cnt
+                  Total = total
+                  RealPercentage = total / totalCap })
 
     (res, carry)
 
