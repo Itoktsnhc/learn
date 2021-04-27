@@ -9,6 +9,10 @@ Project("{F2A71F9B-5D33-465A-A702-920D77279786}") = "Grokking", "Grokking\Grokki
 EndProject
 Project("{F2A71F9B-5D33-465A-A702-920D77279786}") = "ForFunAndProfit", "ForFunAndProfit\ForFunAndProfit.fsproj", "{FEDBA16A-1DE0-4CAB-8A20-8DB971A229A7}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Misc", "Misc", "{A62D5EF4-FBA1-4D7E-919B-EA98B3C08562}"
+EndProject
+Project("{F2A71F9B-5D33-465A-A702-920D77279786}") = "DiversifyInvestment", "DiversifyInvestment\DiversifyInvestment.fsproj", "{5D60E999-2420-4B2C-B9EC-E4DC0015B7C4}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -23,6 +27,10 @@ Global
 		{FEDBA16A-1DE0-4CAB-8A20-8DB971A229A7}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{FEDBA16A-1DE0-4CAB-8A20-8DB971A229A7}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{FEDBA16A-1DE0-4CAB-8A20-8DB971A229A7}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5D60E999-2420-4B2C-B9EC-E4DC0015B7C4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5D60E999-2420-4B2C-B9EC-E4DC0015B7C4}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5D60E999-2420-4B2C-B9EC-E4DC0015B7C4}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5D60E999-2420-4B2C-B9EC-E4DC0015B7C4}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -30,6 +38,7 @@ Global
 	GlobalSection(NestedProjects) = preSolution
 		{56D23223-987F-4213-A2AF-382C71007B8E} = {8E98A6E0-2B0B-4998-AEA9-19B469540065}
 		{FEDBA16A-1DE0-4CAB-8A20-8DB971A229A7} = {8E98A6E0-2B0B-4998-AEA9-19B469540065}
+		{5D60E999-2420-4B2C-B9EC-E4DC0015B7C4} = {A62D5EF4-FBA1-4D7E-919B-EA98B3C08562}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {C9870118-2A1D-4503-9A1A-7FC622C6DFC5}

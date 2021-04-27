@@ -7,8 +7,7 @@
 
     <ItemGroup>
         <Compile Include="Program.fs" />
-        <Compile Include="Intro.fs" />
-        <Compile Include="UContinuations.fs" />
+        <None Include="Diversify.fsx" />
     </ItemGroup>
 
 </Project>
