@@ -4,9 +4,9 @@ type ConfigResult =
     { Part: double
       Count: int
       Total: double
-      RealPercentage: double }
+      RealPercentage: string }
 
-let totalCap = 541502.0
+let totalCap = 5415002.0
 
 let configs =
     [ { Percentage = 0.1; Price = 12.0 }
@@ -40,7 +40,7 @@ let GenerateConfig () =
                 { Part = p
                   Count = cnt
                   Total = total
-                  RealPercentage = total / totalCap })
+                  RealPercentage = sprintf "%A%%" ((total / totalCap) * 100.0) })
 
     (res, carry)
 
