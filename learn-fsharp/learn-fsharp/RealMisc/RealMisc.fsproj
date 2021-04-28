@@ -6,8 +6,9 @@
     </PropertyGroup>
 
     <ItemGroup>
-        <Compile Include="Program.fs" />
         <None Include="Diversify.fsx" />
+        <Compile Include="Program.fs" />
+        <None Include="BasicMatchGame.fsx" />
     </ItemGroup>
 
 </Project>
