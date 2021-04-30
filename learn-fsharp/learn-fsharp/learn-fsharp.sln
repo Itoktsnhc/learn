@@ -13,6 +13,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Misc", "Misc", "{A62D5EF4-F
 EndProject
 Project("{F2A71F9B-5D33-465A-A702-920D77279786}") = "RealMisc", "RealMisc\RealMisc.fsproj", "{9C3B4B07-231B-46B3-B94D-074F0F466C68}"
 EndProject
+Project("{F2A71F9B-5D33-465A-A702-920D77279786}") = "BasicInto", "BasicInto\BasicInto.fsproj", "{9722C1DA-8CBF-45A3-983F-987F3DD7D0C1}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -31,6 +33,10 @@ Global
 		{9C3B4B07-231B-46B3-B94D-074F0F466C68}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{9C3B4B07-231B-46B3-B94D-074F0F466C68}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{9C3B4B07-231B-46B3-B94D-074F0F466C68}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9722C1DA-8CBF-45A3-983F-987F3DD7D0C1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9722C1DA-8CBF-45A3-983F-987F3DD7D0C1}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9722C1DA-8CBF-45A3-983F-987F3DD7D0C1}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9722C1DA-8CBF-45A3-983F-987F3DD7D0C1}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
