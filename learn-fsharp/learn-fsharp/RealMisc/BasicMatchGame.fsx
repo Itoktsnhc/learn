@@ -12,12 +12,12 @@ let rec LoginRoute () =
     let username = Console.ReadLine()
     printfn "Please input your Password"
     let pwd = Console.ReadLine()
-    let loginCred = { Username = username; Password = pwd }
+    let account = { Username = username; Password = pwd }
 
-    match adminList |> Set.contains loginCred with
+    match adminList |> Set.contains account with
     | true -> printfn "Ok!!!"
     | false ->
-        printfn "wrong pwd or username!~!"
+        printfn "wrong pwd or username!!"
         LoginRoute()
 
 LoginRoute()
