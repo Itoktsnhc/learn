@@ -9,6 +9,7 @@
         <None Include="Diversify.fsx" />
         <Compile Include="Program.fs" />
         <None Include="BasicMatchGame.fsx" />
+        <None Include="RequestHelper.fsx" />
     </ItemGroup>
 
 </Project>
