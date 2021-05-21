@@ -5,15 +5,17 @@ VisualStudioVersion = 16.0.31205.134
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Monad", "Monad", "{8E98A6E0-2B0B-4998-AEA9-19B469540065}"
 EndProject
-Project("{F2A71F9B-5D33-465A-A702-920D77279786}") = "Grokking", "Grokking\Grokking.fsproj", "{56D23223-987F-4213-A2AF-382C71007B8E}"
+Project("{6EC3EE1D-3C4E-46DD-8F32-0CC8E7565705}") = "Grokking", "Grokking\Grokking.fsproj", "{56D23223-987F-4213-A2AF-382C71007B8E}"
 EndProject
-Project("{F2A71F9B-5D33-465A-A702-920D77279786}") = "ForFunAndProfit", "ForFunAndProfit\ForFunAndProfit.fsproj", "{FEDBA16A-1DE0-4CAB-8A20-8DB971A229A7}"
+Project("{6EC3EE1D-3C4E-46DD-8F32-0CC8E7565705}") = "ForFunAndProfit", "ForFunAndProfit\ForFunAndProfit.fsproj", "{FEDBA16A-1DE0-4CAB-8A20-8DB971A229A7}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Misc", "Misc", "{A62D5EF4-FBA1-4D7E-919B-EA98B3C08562}"
 EndProject
-Project("{F2A71F9B-5D33-465A-A702-920D77279786}") = "RealMisc", "RealMisc\RealMisc.fsproj", "{9C3B4B07-231B-46B3-B94D-074F0F466C68}"
+Project("{6EC3EE1D-3C4E-46DD-8F32-0CC8E7565705}") = "RealMisc", "RealMisc\RealMisc.fsproj", "{9C3B4B07-231B-46B3-B94D-074F0F466C68}"
 EndProject
-Project("{F2A71F9B-5D33-465A-A702-920D77279786}") = "BasicInto", "BasicInto\BasicInto.fsproj", "{9722C1DA-8CBF-45A3-983F-987F3DD7D0C1}"
+Project("{6EC3EE1D-3C4E-46DD-8F32-0CC8E7565705}") = "BasicInto", "BasicInto\BasicInto.fsproj", "{9722C1DA-8CBF-45A3-983F-987F3DD7D0C1}"
+EndProject
+Project("{F2A71F9B-5D33-465A-A702-920D77279786}") = "Suave_Demo", "Suave_Demo\Suave_Demo.fsproj", "{CF3E0309-3B3E-4860-8B66-4465EB15BED5}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -37,6 +39,10 @@ Global
 		{9722C1DA-8CBF-45A3-983F-987F3DD7D0C1}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{9722C1DA-8CBF-45A3-983F-987F3DD7D0C1}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{9722C1DA-8CBF-45A3-983F-987F3DD7D0C1}.Release|Any CPU.Build.0 = Release|Any CPU
+		{CF3E0309-3B3E-4860-8B66-4465EB15BED5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{CF3E0309-3B3E-4860-8B66-4465EB15BED5}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{CF3E0309-3B3E-4860-8B66-4465EB15BED5}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{CF3E0309-3B3E-4860-8B66-4465EB15BED5}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
