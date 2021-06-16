@@ -69,11 +69,7 @@ trait Summable<T> {
 
 impl Summable<i32> for Vec<i32> {
     fn sum(&self) -> i32 {
-        let mut res = 0;
-        for x in self {
-            res += x;
-        }
-        res
+        self.iter().sum()
     }
 }
 
