@@ -1,9 +1,193 @@
+#![allow(unused)]
+
+mod sh;
+
 use std::mem;
 use std::f64::consts::PI;
+use crate::sh::stack_and_heap;
+use std::io::stdin;
+use crate::State::Locked;
+use std::collections::HashMap;
 
 fn main() {
-    scope_and_shadowing();
+    traits();
+    //hashmaps();
+    //vectors();
+    //structures();
+    //combination_lock();
+    //match_statement();
+    //if_statement();
+    //stack_and_heap();
+    //scope_and_shadowing();
 }
+
+trait Animal {
+    fn create(name: &'static str) -> Self;
+    fn name(&self) -> &'static str;
+    fn talk(&self) {
+        println!("{} cannot talk", self.name())
+    }
+}
+
+struct Human {
+    name: &'static str,
+}
+
+struct Cat {
+    name: &'static str,
+}
+
+impl Animal for Cat {
+    fn create(name: &'static str) -> Cat {
+        Cat { name }
+    }
+
+    fn name(&self) -> &'static str {
+        self.name
+    }
+    fn talk(&self) {
+        println!("{} just meo meo", self.name);
+    }
+}
+
+impl Animal for Human {
+    fn create(name: &'static str) -> Human {
+        Human { name }
+    }
+
+    fn name(&self) -> &'static str {
+        self.name
+    }
+    fn talk(&self) {
+        println!("{} can talk !", self.name())
+    }
+}
+
+trait Summable<T> {
+    fn sum(&self) -> T;
+}
+
+impl Summable<i32> for Vec<i32> {
+    fn sum(&self) -> i32 {
+        let mut res = 0;
+        for x in self {
+            res += x;
+        }
+        res
+    }
+}
+
+fn traits() {
+    let h = Human::create("123");
+    h.talk();
+    let c = Cat::create("糊糊");
+    c.talk();
+    let vec = vec![1, 2, 3];
+
+    println!("sum = {}", vec.sum());
+}
+
+fn hashmaps() {
+    let mut shapes = HashMap::new();
+    shapes.insert(String::from("triangle"), 3);
+    shapes.insert(String::from("square"), 4);
+
+    for (key, val) in shapes {
+        println!("{} => {}", key, val);
+    }
+}
+
+fn vectors() {
+    let mut a = Vec::new();
+    a.push(1);
+    a.push(2);
+    a.push(3);
+    while let Some(x) = a.pop() {
+        println!("{}", x);
+    }
+}
+
+fn structures() {
+    let start = Point { x: 3.0, y: 4.0 };
+    let end = Point { x: 5.0, y: 10.0 };
+    let line = Line { start, end };
+}
+
+struct Line {
+    start: Point,
+    end: Point,
+}
+
+struct Point {
+    x: f64,
+    y: f64,
+}
+
+enum State {
+    Locked,
+    Failed,
+    Unlocked,
+}
+
+fn combination_lock() {
+    println!("Please input your code:");
+    let code = String::from("1234");
+    let mut state = State::Locked;
+    let mut entry = String::new();
+    loop {
+        match state {
+            State::Locked => {
+                let mut input = String::new();
+                match stdin().read_line(&mut input) {
+                    Ok(_) => {
+                        entry.push_str(&input.trim_end())
+                    }
+                    Err(_) => continue
+                }
+                if entry == code {
+                    state = State::Unlocked;
+                    continue;
+                }
+                if !code.starts_with(&entry) {
+                    state = State::Failed;
+                }
+            }
+            State::Failed => {
+                println!("FAILED");
+                entry.clear();
+                state = Locked;
+                continue;
+            }
+            State::Unlocked => {
+                println!("UNLOCKED");
+                return;
+            }
+        }
+    }
+}
+
+fn match_statement() {
+    let country_code = 1000;
+    let country = match country_code {
+        44 => "UK",
+        46 => "Sweden",
+        7 => "Russia",
+        1..=1000 => "unknown",
+        _ => "invalid"
+    };
+    println!("the country with code {}  is {}", country_code, country);
+}
+
+fn if_statement() {
+    let tmp = 35;
+    if tmp > 30
+    {
+        println!("So Hot");
+    }
+
+    let day = if tmp > 20 { "sunny" } else { "cloudy" };
+}
+
 
 fn scope_and_shadowing() {
     let a = 123;
@@ -16,7 +200,6 @@ fn scope_and_shadowing() {
     println!("outside a is  {}", a);
 }
 
-#[allow(unused)]
 fn operators() {
     let mut a = 2 + 3 * 4;
     println!("{}", a);
@@ -32,7 +215,6 @@ fn operators() {
     println!("2>>1 is {}", 2 >> 1);
 }
 
-#[allow(unused)]
 fn core_types() {
     let a: u8 = 10;
     println!("a = {}", a);
