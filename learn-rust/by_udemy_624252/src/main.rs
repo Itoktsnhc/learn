@@ -11,8 +11,17 @@ use std::collections::HashMap;
 use std::fmt::{Debug, Formatter};
 use std::ops::{Add, AddAssign};
 use std::process::Output;
+use std::rc::Rc;
+use std::sync::Arc;
+use std::thread;
 
 fn main() {
+    arc();
+    //ref_counter();
+    //struct_lifetime();
+    //lifetime();
+    //borrowing();
+    //ownership();
     //static_dispatch();
     //operator_overloading();
     //trait_drop();
@@ -27,6 +36,124 @@ fn main() {
     //if_statement();
     //stack_and_heap();
     //scope_and_shadowing();
+}
+
+struct Anim {
+    name: Arc<String>,
+}
+
+impl Anim {
+    fn new(name: Arc<String>) -> Anim {
+        Anim { name }
+    }
+    fn greeting(&self) {
+        println!("Hi, My name is {}", self.name);
+    }
+}
+
+fn arc() {
+    let name = Arc::new("Jerry".to_string());
+    let person = Anim::new(name.clone());
+    let t = thread::spawn(move || {
+        person.greeting();
+    });
+
+    println!("Name = {}", name);
+    t.join().unwrap();
+}
+
+struct Ani {
+    name: Rc<String>,
+}
+
+impl Ani {
+    fn new(name: Rc<String>) -> Ani {
+        Ani { name }
+    }
+    fn greeting(&self) {
+        println!("Hi, My name is {}", self.name);
+    }
+}
+
+fn ref_counter() {
+    let name = Rc::new("Tom".to_string());
+    println!("name = {}, has strong point count: {}", name, Rc::strong_count(&name));
+
+    {
+        let a = Ani::new(name.clone());
+        println!("name = {}, has strong point count: {}", name, Rc::strong_count(&name));
+        a.greeting();
+    }
+    println!("{}", name.clone());
+    println!("name = {}, has strong point count: {}", name, Rc::strong_count(&name));
+}
+
+struct P<'a> {
+    name: &'a str,
+}
+
+impl<'l> P<'l> {
+    //需要显式的声明生命周期
+    fn talk(&self)
+    {
+        println!("Hi my name is {}.", self.name);
+    }
+}
+
+fn struct_lifetime() {
+    let p = P { name: "Dmitri" };
+    p.talk();
+}
+
+struct Company<'z> {
+    name: String,
+    ceo: &'z Person,
+}
+
+fn lifetime() {
+    let boss = Person { name: "Jack".to_string() };
+    let com = Company { name: "Ali".to_string(), ceo: &boss };
+}
+
+fn borrowing() {
+    let print_vector = |x: &Vec<i32>|
+        {
+            println!("x[0] = {}", x[0]);
+        };
+    let v = vec![3, 2, 1];
+    print_vector(&v);
+    println!("v[0] = {}", v[0]);
+
+    let mut a = 40;
+    let b = &mut a;
+    *b += 2;
+    println!("b = {}", b);
+    println!("a = {}", a);
+
+    let mut z = vec![3, 2, 1];
+    for i in &z {
+        println!("{}", i);
+    }
+}
+
+fn ownership() {
+    let v = vec![1, 2, 3];
+    //let v2 = v;//move for point type;
+    //print!("{:?}", v); value borrowed here after move
+
+    let mut a = 1;
+    let b = a;
+    a = 9;
+    println!("{}", b);
+    println!("{}", a);//primitive type always copy
+
+    let print_vector = |x: Vec<i32>| -> Vec<i32>{
+        println!("{:?}", x);
+        x
+    };
+    let vv = print_vector(v);
+    println!("{}", vv[0]);
+    //println!("{}", v[0]);// after called v is moved
 }
 
 trait Printable {
@@ -49,7 +176,7 @@ fn print_it<T: Printable>(z: T) {
     println!("{}", z.format());
 }
 
-fn print_it_dynamic(z: &Printable) {
+fn print_it_dynamic(z: &dyn Printable) {
     println!("{}", z.format())
 }
 
