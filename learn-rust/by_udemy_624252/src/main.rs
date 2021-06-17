@@ -5,12 +5,18 @@ mod sh;
 use std::mem;
 use std::f64::consts::PI;
 use crate::sh::stack_and_heap;
-use std::io::stdin;
+use std::io::{stdin, Take};
 use crate::State::Locked;
 use std::collections::HashMap;
 use std::fmt::{Debug, Formatter};
+use std::ops::{Add, AddAssign};
+use std::process::Output;
 
 fn main() {
+    //static_dispatch();
+    //operator_overloading();
+    //trait_drop();
+    //trait_intro();
     //trait_params();
     //traits();
     //hashmaps();
@@ -21,6 +27,134 @@ fn main() {
     //if_statement();
     //stack_and_heap();
     //scope_and_shadowing();
+}
+
+trait Printable {
+    fn format(&self) -> String;
+}
+
+impl Printable for i32 {
+    fn format(&self) -> String {
+        format!("i32:{}", self)
+    }
+}
+
+impl Printable for f32 {
+    fn format(&self) -> String {
+        format!("f32:{}", self)
+    }
+}
+
+fn print_it<T: Printable>(z: T) {
+    println!("{}", z.format());
+}
+
+fn print_it_dynamic(z: &Printable) {
+    println!("{}", z.format())
+}
+
+fn static_dispatch() {
+    let a = 10;
+    //print_it(a);
+    print_it_dynamic(&a);
+    let f: f32 = 12.3;
+    //print_it(f);
+    print_it_dynamic(&f);
+}
+
+#[derive(Debug)]
+struct Complex<T>
+{
+    re: T,
+    im: T,
+}
+
+impl<T> Complex<T> {
+    fn new(re: T, im: T) -> Complex<T> {
+        Complex::<T> { re, im }
+    }
+}
+
+impl<T> Add for Complex<T>
+    where T: Add<Output=T> {
+    type Output = Complex<T>;
+
+    fn add(self, rhs: Self) -> Self::Output {
+        Complex::<T> {
+            re: self.re + rhs.re,
+            im: self.im + rhs.im,
+        }
+    }
+}
+
+impl<T> AddAssign for Complex<T>
+    where T: AddAssign<T> {
+    fn add_assign(&mut self, rhs: Self) {
+        self.re += rhs.re;
+        self.im += rhs.im;
+    }
+}
+
+impl<T> PartialEq for Complex<T>
+    where T: PartialEq {
+    fn eq(&self, rhs: &Self) -> bool {
+        self.re == rhs.re && self.im == rhs.im
+    }
+}
+
+fn operator_overloading() {
+    let mut a = Complex::new(1, 2);
+    let mut b = Complex::new(3, 4);
+    let mut c = Complex::new(1, 2);
+    // let c = a + b;
+    // println!("{:?}", c);
+
+    // a += Complex::new(4, 5);
+    // println!("{:?}", a);
+
+    println!("{:?}", a == c);
+}
+
+
+struct Creature {
+    name: String,
+}
+
+impl Creature {
+    fn new(name: &str) -> Creature {
+        println!("{} enters the game", name);
+        Creature { name: name.into() }
+    }
+}
+
+impl Drop for Creature {
+    fn drop(&mut self) {
+        println!("{} is DEAD", self.name);
+    }
+}
+
+fn trait_drop() {
+    let goblin = Creature::new("Jeff");
+    println!("game proceeds");
+}
+
+struct Person {
+    name: String,
+}
+
+impl Person {
+    // fn new(name: &str) -> Person {
+    //     Person { name: name.to_string() }
+    // }
+    fn new<S>(name: S) -> Person where S: Into<String> {
+        Person { name: name.into() }
+    }
+}
+
+fn trait_intro() {
+    let john = Person::new("John");
+    let name = "Jane".to_string();
+    let jane = Person::new(name);
 }
 
 trait Shape {
