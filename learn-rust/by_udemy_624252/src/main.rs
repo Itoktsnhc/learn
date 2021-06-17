@@ -8,9 +8,11 @@ use crate::sh::stack_and_heap;
 use std::io::stdin;
 use crate::State::Locked;
 use std::collections::HashMap;
+use std::fmt::{Debug, Formatter};
 
 fn main() {
-    traits();
+    //trait_params();
+    //traits();
     //hashmaps();
     //vectors();
     //structures();
@@ -19,6 +21,44 @@ fn main() {
     //if_statement();
     //stack_and_heap();
     //scope_and_shadowing();
+}
+
+trait Shape {
+    fn area(&self) -> f64;
+}
+
+#[derive(Debug)]
+struct Circle {
+    radius: f64,
+}
+
+#[derive(Debug)]
+struct Square {
+    side: f64,
+}
+
+impl Shape for Square {
+    fn area(&self) -> f64 {
+        return self.side * self.side;
+    }
+}
+
+impl Shape for Circle {
+    fn area(&self) -> f64 {
+        PI * self.radius * self.radius
+    }
+}
+
+
+fn print_info<T: Shape + Debug>(shape: T) {
+    println!("the area of shape {:?} is {}", shape, shape.area())
+}
+
+fn trait_params() {
+    let cir = Circle { radius: 4.0 };
+    print_info(cir);
+    let square = Square { side: 4.0 };
+    print_info(square);
 }
 
 trait Animal {
