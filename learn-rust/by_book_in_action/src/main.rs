@@ -1,0 +1,57 @@
+use std::convert::TryInto;
+
+fn main() {
+    //main_2_3();
+    //main_2_4();
+    main_2_5_7();
+}
+
+fn main_2_5_7() {
+    let haystack = [1, 1, 2, 5, 14, 42, 132, 429, 1430, 4862];
+    for item in &haystack {
+        let res = match *item
+        {
+            42 | 132 => "hit",
+            _ => "miss",
+        };
+        if res == "hit" {
+            println!("{}: {}", item, res);
+        }
+    }
+}
+
+fn main_2_4() {
+    let needle = 0o52;
+    let haystack = [1, 1, 2, 5, 14, 42, 132, 429, 1430, 4862];
+    let haystack2 = vec![1, 3, 4, 42, 4, 5, 43, 554];
+    for item in &haystack {
+        if *item == needle {
+            println!("{}", item);
+        }
+    }
+
+    for item in haystack2.into_iter() {
+        if item == needle {
+            println!("{}", item);
+        }
+    }
+
+    loop {
+        println!("are we ok here?");
+    }
+}
+
+fn main_2_3() {
+    let a: i32 = 101;
+    let b: u16 = 100;
+    if a < b.try_into().unwrap() {
+        println!("true");
+    } else { println!("false"); }
+    let absolute_difference: f64 = (0.3f64 - (0.1 + 0.2)).abs();
+    assert!(absolute_difference <= f64::EPSILON);
+    assert_eq!(f32::NAN == f32::NAN, false);//NAN != NAN
+}
+
+fn is_even_2(a: i32) -> bool {
+    if a % 2 == 0 { true } else { false }
+}
