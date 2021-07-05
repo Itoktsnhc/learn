@@ -1,10 +1,46 @@
+#![allow(unused)]
+
 use std::convert::TryInto;
+use std::ops::Add;
+
 
 fn main() {
     //main_2_3();
     //main_2_4();
-    main_2_5_7();
+    //main_2_5_7();
+    main_2_22();
 }
+
+fn main_2_27() {
+    let one = [1, 2, 3];
+    let two: [u8; 3] = [1, 2, 3];
+    let blank1 = [0; 3];
+    let blank2: [u8; 3] = [0; 3];
+    let arrays = [one, two, blank1, blank2];
+    for a in &arrays {
+        print!("{:?}: ", a);
+        for n in a.iter() {
+            print!("\t{} + 10 = {}", n, n + 10);
+        }
+        let mut sum = 0;
+        for i in 0..a.len() {
+            sum += a[i];
+        }
+        println!("\t(Σ{:?} = {})", a, sum);
+    }
+}
+
+fn main_2_22() {
+    let res = add_with_generic(1, 3);
+    println!("{}", res);
+    let res = add_with_generic(1.0, 2.1);
+    println!("{}", res);
+}
+
+fn add_with_generic<T: Add<Output=T>>(i: T, j: T) -> T {
+    i + j
+}
+
 
 fn main_2_5_7() {
     let haystack = [1, 1, 2, 5, 14, 42, 132, 429, 1430, 4862];
