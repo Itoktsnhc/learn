@@ -5,9 +5,10 @@ import (
 	"math"
 	"math/cmplx"
 	"runtime"
+	"time"
 )
 
-func mainOld() {
+func main1() {
 	fmt.Println(math.Pi)
 	fmt.Println(add(1, 5))
 	fmt.Println(addV2(1, 5))
@@ -20,7 +21,7 @@ func mainOld() {
 
 }
 
-func main(){
+func main2() {
 	var first = intSeq()
 	var second = intSeq()
 	fmt.Println(first())
@@ -31,6 +32,29 @@ func main(){
 	fmt.Println(second())
 }
 
+func main() {
+	done := make(chan bool, 1)
+	go worker(done)
+	<-done
+}
+
+func ping(pings chan<- string, msg string) {
+	pings <- msg
+}
+
+func worker(done chan bool) {
+	fmt.Print("working...")
+	time.Sleep(time.Second)
+	fmt.Println("done")
+	done <- true
+}
+
+func f(from string) {
+	for i := 0; i < 3; i++ {
+		fmt.Println(from, ":", i)
+	}
+}
+
 func intSeq() func() int {
 	i := 0
 	return func() int {
@@ -38,7 +62,6 @@ func intSeq() func() int {
 		return i
 	}
 }
-
 
 func add(x int, y int) int {
 	return x + y
@@ -106,7 +129,7 @@ func CheckEnv() {
 	}
 }
 
-func SliceAndArray(){
+func SliceAndArray() {
 	names := [4]string{
 		"John",
 		"Paul",
