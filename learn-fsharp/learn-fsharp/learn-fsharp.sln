@@ -17,6 +17,10 @@ Project("{6EC3EE1D-3C4E-46DD-8F32-0CC8E7565705}") = "BasicInto", "BasicInto\Basi
 EndProject
 Project("{F2A71F9B-5D33-465A-A702-920D77279786}") = "Suave_Demo", "Suave_Demo\Suave_Demo.fsproj", "{CF3E0309-3B3E-4860-8B66-4465EB15BED5}"
 EndProject
+Project("{F2A71F9B-5D33-465A-A702-920D77279786}") = "FSToDoList", "FSToDoList\FSToDoList.fsproj", "{1E6A9AF4-17CC-4B2A-869A-59A1A1195B88}"
+EndProject
+Project("{F2A71F9B-5D33-465A-A702-920D77279786}") = "FSToDoList_Suave", "FSToDoList_Suave\FSToDoList_Suave.fsproj", "{2FA1F5C0-CE03-4F2F-84C8-5E2E6886AD50}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -43,6 +47,14 @@ Global
 		{CF3E0309-3B3E-4860-8B66-4465EB15BED5}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{CF3E0309-3B3E-4860-8B66-4465EB15BED5}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{CF3E0309-3B3E-4860-8B66-4465EB15BED5}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1E6A9AF4-17CC-4B2A-869A-59A1A1195B88}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1E6A9AF4-17CC-4B2A-869A-59A1A1195B88}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1E6A9AF4-17CC-4B2A-869A-59A1A1195B88}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1E6A9AF4-17CC-4B2A-869A-59A1A1195B88}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2FA1F5C0-CE03-4F2F-84C8-5E2E6886AD50}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2FA1F5C0-CE03-4F2F-84C8-5E2E6886AD50}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2FA1F5C0-CE03-4F2F-84C8-5E2E6886AD50}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2FA1F5C0-CE03-4F2F-84C8-5E2E6886AD50}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
