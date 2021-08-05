@@ -3,20 +3,34 @@ module App
 open Elmish
 open Elmish.React
 open Feliz
+open Validation
 
+type State = { NumberInput: Validated<int> }
+type Msg = SetNumberInput of Validated<int>
 
-type State = { TextInput: string }
-type Msg = SetTextInput of string
-
-let init () = { TextInput = "" }
+let init () = { NumberInput = createEmpty () }
 
 let update msg state =
     match msg with
-    | SetTextInput textInput -> { state with TextInput = textInput }
+    | SetNumberInput numberInput -> { state with NumberInput = numberInput }
+
+let tryParseInt (input: string) : Validated<int> =
+    try
+        success input (int input)
+    with
+    | _ -> failure input
+
+let validatedTextColor validated =
+    match validated.Parsed with
+    | Some _ -> color.green
+    | None -> color.crimson
 
 let render state dispatch =
-    Html.div [ Html.input [ prop.onChange (SetTextInput >> dispatch) ]
-               Html.span state.TextInput ]
+    Html.div [ prop.style [ style.padding 20 ]
+               prop.children [ Html.input [ prop.valueOrDefault state.NumberInput.Raw
+                                            prop.onChange (tryParseInt >> SetNumberInput >> dispatch) ]
+                               Html.h1 [ prop.style [ style.color (validatedTextColor state.NumberInput) ]
+                                         prop.text state.NumberInput.Raw ] ] ]
 
 Program.mkSimple init update render
 |> Program.withReactSynchronous "elm-app-bootstrap"
