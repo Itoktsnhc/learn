@@ -2,77 +2,104 @@ module App
 
 open Elmish
 open Elmish.React
+open System
 open Feliz
+open Browser.Types
+open Browser
 
-type State = { Count: int; Loading: bool }
+type Request =
+    { url: string
+      method: string
+      body: string }
 
-type Msg =
-    | Increment
-    | Decrement
-    | IncrementDelayed
-    | DecrementDelayed
+type Response = { statusCode: int; body: string }
 
-let fromAsync (operation: Async<'msg>) : Cmd<'msg> =
-    let delayedCmd (dispatch: 'msg -> unit) : unit =
-        let delayedDispatch =
-            async {
-                let! msg = operation
-                dispatch msg
-            }
+type Deferred<'t> =
+    | HasNotStartedYet
+    | InProgress
+    | Resolved of 't
 
-        Async.StartImmediate delayedDispatch
+type AsyncOperationStatus<'t> =
+    | Started
+    | Finished of 't
 
-    Cmd.ofSub delayedCmd
+type State =
+    { LoremIpsum: Deferred<Result<string, string>> }
 
-let delayedMsg (delay: int) (msg: Msg) : Cmd<Msg> =
-    let delay =
-        async {
-            do! Async.Sleep delay
-            return msg
-        }
+type Msg = LoadLoremIpsum of AsyncOperationStatus<Result<string, string>>
 
-    fromAsync delay
+let httpRequest (request: Request) (responseHandler: Response -> 'Msg) : Cmd<'Msg> =
+    let command (dispatch: 'Msg -> unit) =
+        // create an instance
+        let xhr = XMLHttpRequest.Create()
+        // open the connection
+        xhr.``open`` (method = request.method, url = request.url)
+        // setup the event handler that triggers when the content is loaded
+        xhr.onreadystatechange <-
+            fun _ ->
+                if xhr.readyState = ReadyState.Done then
+                    // create the response
+                    let response =
+                        { statusCode = xhr.status
+                          body = xhr.responseText }
+                    // transform response into a message
+                    let messageToDispatch = responseHandler response
+                    dispatch messageToDispatch
+
+        // send the request
+        xhr.send (request.body)
+
+    Cmd.ofSub command
 
 let init () =
-    { Count = 0; Loading = false }, Cmd.none
+    { LoremIpsum = HasNotStartedYet }, Cmd.ofMsg (LoadLoremIpsum Started)
+
+let rand = Random()
 
 let update msg state =
     match msg with
-    | Increment ->
-        { state with
-              Count = state.Count + 1
-              Loading = false },
-        Cmd.none
-    | Decrement ->
-        { state with
-              Count = state.Count - 1
-              Loading = false },
-        Cmd.none
-    | IncrementDelayed when state.Loading -> state, Cmd.none
-    | DecrementDelayed when state.Loading -> state, Cmd.none
-    | IncrementDelayed -> state, delayedMsg 1000 Increment
-    | DecrementDelayed -> state, delayedMsg 1000 Decrement
+    | LoadLoremIpsum Started ->
+        let nextState = { state with LoremIpsum = InProgress }
+        let exist = "/lorem-ipsum.txt"
+        let notExist = "/lorem-ipsum-0.txt"
 
+        let request =
+            { url =
+                  if rand.Next(10) > 3 then
+                      exist
+                  else
+                      notExist
+              method = "GET"
+              body = "" }
+
+        let responseMapper (response: Response) =
+            if response.statusCode = 200 then
+                LoadLoremIpsum(Finished(Ok response.body))
+            else
+                LoadLoremIpsum(Finished(Error "Could not load the content"))
+
+        nextState, httpRequest request responseMapper
+    | LoadLoremIpsum (Finished result) ->
+        let nextState =
+            { state with
+                  LoremIpsum = Resolved result }
+
+        nextState, Cmd.none
 
 let render (state: State) (dispatch: Msg -> unit) =
-    let content =
-        if state.Loading then
-            Html.h1 "LOADING..."
-        else
-            Html.h1 state.Count
+    match state.LoremIpsum with
+    | HasNotStartedYet -> Html.none
 
-    Html.div [ Html.button [ prop.onClick (fun _ -> dispatch Increment)
-                             prop.text "Increment" ]
-               Html.button [ prop.onClick (fun _ -> dispatch Decrement)
-                             prop.text "Decrement" ]
-               Html.button [ prop.onClick (fun _ -> dispatch IncrementDelayed)
-                             prop.text "Increment Delayed"
-                             prop.disabled state.Loading ]
-               Html.button [ prop.onClick (fun _ -> dispatch DecrementDelayed)
-                             prop.text "Decrement Delayed"
-                             prop.disabled state.Loading ]
+    | InProgress -> Html.div "Loading..."
 
-               Html.h1 content ]
+    | Resolved (Ok content) ->
+        Html.div [ prop.style [ style.color.green ]
+                   prop.text content ]
+
+    | Resolved (Error errorMsg) ->
+        Html.div [ prop.style [ style.color.red ]
+                   prop.text errorMsg ]
+
 
 Program.mkProgram init update render
 |> Program.withReactSynchronous "elm-app"
