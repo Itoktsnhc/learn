@@ -1,6 +1,6 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-Project("{F2A71F9B-5D33-465A-A702-920D77279786}") = "Chapter_1", "Chapter_1\Chapter_1.fsproj", "{A1D8E927-4E1C-4D1A-A9E5-B7CA331D1EE0}"
+Project("{F2A71F9B-5D33-465A-A702-920D77279786}") = "essential", "essential\essential.fsproj", "{A1D8E927-4E1C-4D1A-A9E5-B7CA331D1EE0}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
