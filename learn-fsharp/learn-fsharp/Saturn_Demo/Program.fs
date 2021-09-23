@@ -1,13 +1,25 @@
 // Learn more about F# at http://docs.microsoft.com/dotnet/fsharp
 
 open System
+open Saturn
+open Giraffe
 
-// Define a function to construct a message to print
-let from whom =
-    sprintf "from %s" whom
+type Customer = { Name: string; Address: string }
 
-[<EntryPoint>]
-let main argv =
-    let message = from "F#" // Call the function
-    printfn "Hello world %s" message
-    0 // return an integer exit code
+let customers =
+    choose [ GET
+             >=> (json
+                      { Name = "Mr. Smith"
+                        Address = "Santa Monika" })
+             PUT
+             >=> (bindJson<Customer>
+                      (fun customer ->
+                          printfn $"Adding customer %A{customer}"
+                          json customer)) ]
+
+let webApp =
+    choose [ route "/" >=> htmlFile "/pages/index.html"
+             route "/api/customers" >=> customers ]
+
+let app = application { use_router webApp }
+run app
