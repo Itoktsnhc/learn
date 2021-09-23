@@ -21,6 +21,8 @@ Project("{F2A71F9B-5D33-465A-A702-920D77279786}") = "FSToDoList", "FSToDoList\FS
 EndProject
 Project("{F2A71F9B-5D33-465A-A702-920D77279786}") = "FSToDoList_Suave", "FSToDoList_Suave\FSToDoList_Suave.fsproj", "{2FA1F5C0-CE03-4F2F-84C8-5E2E6886AD50}"
 EndProject
+Project("{F2A71F9B-5D33-465A-A702-920D77279786}") = "Saturn_Demo", "Saturn_Demo\Saturn_Demo.fsproj", "{3ABA6E9A-0200-4792-98DE-348DC18C2AF5}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -55,6 +57,10 @@ Global
 		{2FA1F5C0-CE03-4F2F-84C8-5E2E6886AD50}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{2FA1F5C0-CE03-4F2F-84C8-5E2E6886AD50}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{2FA1F5C0-CE03-4F2F-84C8-5E2E6886AD50}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3ABA6E9A-0200-4792-98DE-348DC18C2AF5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3ABA6E9A-0200-4792-98DE-348DC18C2AF5}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3ABA6E9A-0200-4792-98DE-348DC18C2AF5}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3ABA6E9A-0200-4792-98DE-348DC18C2AF5}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
