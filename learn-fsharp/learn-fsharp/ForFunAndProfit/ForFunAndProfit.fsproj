@@ -9,6 +9,7 @@
         <Compile Include="Program.fs" />
         <Compile Include="Intro.fs" />
         <Compile Include="UContinuations.fs" />
+        <Compile Include="MapAndApply.fs" />
     </ItemGroup>
 
 </Project>
