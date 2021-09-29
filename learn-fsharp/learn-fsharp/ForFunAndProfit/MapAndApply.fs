@@ -39,7 +39,7 @@ let addTripleOpt = Option.lift3 addTriple
 
 Option.lift2 (+) (Some 2) (Some 3) |> ignore
 // define a tuple creation function
-let tuple x y = x,y
+let tuple x y = x, y
 
 // create a generic combiner of options
 // with the tuple constructor baked in
@@ -48,13 +48,39 @@ let combineOpt x y = Option.lift2 tuple x y
 
 // alternate "zip" implementation
 // [f;g] apply [x;y] becomes [f x; g y]
-let rec zipList fList xList  =
-    match fList,xList with
-    | [],_
-    | _,[] ->
+let rec zipList fList xList =
+    match fList, xList with
+    | [], _
+    | _, [] ->
         // either side empty, then done
         []
-    | (f::fTail),(x::xTail) ->
+    | (f :: fTail), (x :: xTail) ->
         // new head + new tail
         (f x) :: (zipList fTail xTail)
 // has type : ('a -> 'b) -> 'a list -> 'b list
+
+
+//monadic function
+let parseInt str =
+    match str with
+    | "-1" -> Some -1
+    | "0" -> Some 0
+    | "1" -> Some 1
+    | "2" -> Some 2
+    // etc
+    | _ -> None
+
+type OrderQty = OrderQty of int
+
+let toOrderQty qty =
+    if qty >= 1 then
+        Some(OrderQty qty)
+    else
+        // only positive numbers allowed
+        None
+
+let (>>=) opt f = Option.bind f opt
+let parseOrderQty str = parseInt str |> Option.bind toOrderQty
+
+
+let parseOrderQty' str = str |> parseInt >>= toOrderQty

@@ -6,10 +6,11 @@
     </PropertyGroup>
 
     <ItemGroup>
-        <Compile Include="Program.fs" />
         <Compile Include="Intro.fs" />
         <Compile Include="UContinuations.fs" />
         <Compile Include="MapAndApply.fs" />
+        <Compile Include="elevated-world-3.fs" />
+        <Compile Include="Program.fs" />
     </ItemGroup>
 
 </Project>
