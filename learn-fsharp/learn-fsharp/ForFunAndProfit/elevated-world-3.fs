@@ -73,3 +73,4 @@ let createCustomerResultA id name email =
     <*> emailResult
 
 let (>>=) x f = Result.bind f x
+<*> (mapOption f tail)

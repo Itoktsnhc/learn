@@ -61,7 +61,7 @@ let rec zipList fList xList =
 
 
 //monadic function
-let parseInt str =
+let parseInt' str =
     match str with
     | "-1" -> Some -1
     | "0" -> Some 0
@@ -80,7 +80,31 @@ let toOrderQty qty =
         None
 
 let (>>=) opt f = Option.bind f opt
-let parseOrderQty str = parseInt str |> Option.bind toOrderQty
+let parseOrderQty str = parseInt' str |> Option.bind toOrderQty
 
 
-let parseOrderQty' str = str |> parseInt >>= toOrderQty
+let parseOrderQty' str = str |> parseInt' >>= toOrderQty
+
+
+let (<*>) = Option.apply
+let retn = Some
+
+let rec mapOption f list =
+    let cons head tail = head :: tail
+    match list with
+    | [] ->
+        retn []
+    | head::tail ->
+        retn cons <*> (f head) <*> (mapOption f tail)
+        
+let parseInt (str:string) =
+    match (System.Int32.TryParse str) with
+    | true,i -> Some i
+    | false,_ -> None
+// string -> int option
+
+let good = ["1";"2";"3"] |> mapOption parseInt
+// Some [1; 2; 3]
+
+let bad = ["1";"x";"y"] |> mapOption parseInt
+// None
