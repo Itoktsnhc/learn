@@ -31,6 +31,10 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Some-Dsl", "Some-Dsl", "{44
 EndProject
 Project("{F2A71F9B-5D33-465A-A702-920D77279786}") = "Planetary-Dsl", "Planetary-Dsl\Planetary-Dsl.fsproj", "{1458316C-64C0-48E8-B4EE-8145A69E0744}"
 EndProject
+Project("{F2A71F9B-5D33-465A-A702-920D77279786}") = "StylishFSharp", "StylishFSharp\StylishFSharp.fsproj", "{B8D139CA-233A-47D9-9439-6AF9B5269998}"
+EndProject
+Project("{F2A71F9B-5D33-465A-A702-920D77279786}") = "DomainModeling", "DomainModeling\DomainModeling.fsproj", "{357AD1FB-285F-49ED-9CCA-F7C84040E34C}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -81,6 +85,14 @@ Global
 		{1458316C-64C0-48E8-B4EE-8145A69E0744}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{1458316C-64C0-48E8-B4EE-8145A69E0744}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{1458316C-64C0-48E8-B4EE-8145A69E0744}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B8D139CA-233A-47D9-9439-6AF9B5269998}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B8D139CA-233A-47D9-9439-6AF9B5269998}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B8D139CA-233A-47D9-9439-6AF9B5269998}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B8D139CA-233A-47D9-9439-6AF9B5269998}.Release|Any CPU.Build.0 = Release|Any CPU
+		{357AD1FB-285F-49ED-9CCA-F7C84040E34C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{357AD1FB-285F-49ED-9CCA-F7C84040E34C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{357AD1FB-285F-49ED-9CCA-F7C84040E34C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{357AD1FB-285F-49ED-9CCA-F7C84040E34C}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
