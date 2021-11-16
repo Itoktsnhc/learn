@@ -20,6 +20,7 @@
             "preLaunchTask": "Watch Client",
             "url": "http://localhost:8080",
             "webRoot": "${workspaceFolder}/src",
+            "sourceMaps": true,
             "sourceMapPathOverrides": {
                 "webpack:///*": "${workspaceFolder}/*",
             }

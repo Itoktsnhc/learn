@@ -10,14 +10,14 @@ node_modules/
 *.suo
 *.user
 *.sln.docstates
-/build
+
 # Xamarin Studio / monodevelop user-specific
 *.userprefs
 *.dll.mdb
 *.exe.mdb
 
 # Build results
-
+.ionide
 [Dd]ebug/
 [Rr]elease/
 x64/
@@ -194,6 +194,7 @@ docs/tools/FSharp.Formatting.svclog
 .ionide.debug
 *.bak
 project.lock.json
+bundle.js
+bundle.js.map
 .fable
-.ionide
 main.js
