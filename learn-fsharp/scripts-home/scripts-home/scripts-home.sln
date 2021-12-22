@@ -6,6 +6,10 @@ Project("{F2A71F9B-5D33-465A-A702-920D77279786}") = "Console", "Console\Console.
 EndProject
 Project("{F2A71F9B-5D33-465A-A702-920D77279786}") = "Web", "Web\Web.fsproj", "{8E4BAB73-7D65-4EF6-B49F-835E2FCBA2E1}"
 EndProject
+Project("{F2A71F9B-5D33-465A-A702-920D77279786}") = "Dapper.Demo", "Dapper.Demo\Dapper.Demo.fsproj", "{76D466A2-5528-459B-AB97-BE19199E448D}"
+EndProject
+Project("{F2A71F9B-5D33-465A-A702-920D77279786}") = "saturn.demo", "saturn.demo\saturn.demo.fsproj", "{BF3EC009-A350-4E70-B22A-0EBEF2FD716A}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -24,5 +28,13 @@ Global
 		{8E4BAB73-7D65-4EF6-B49F-835E2FCBA2E1}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{8E4BAB73-7D65-4EF6-B49F-835E2FCBA2E1}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{8E4BAB73-7D65-4EF6-B49F-835E2FCBA2E1}.Release|Any CPU.Build.0 = Release|Any CPU
+		{76D466A2-5528-459B-AB97-BE19199E448D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{76D466A2-5528-459B-AB97-BE19199E448D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{76D466A2-5528-459B-AB97-BE19199E448D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{76D466A2-5528-459B-AB97-BE19199E448D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{BF3EC009-A350-4E70-B22A-0EBEF2FD716A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BF3EC009-A350-4E70-B22A-0EBEF2FD716A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BF3EC009-A350-4E70-B22A-0EBEF2FD716A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BF3EC009-A350-4E70-B22A-0EBEF2FD716A}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal
