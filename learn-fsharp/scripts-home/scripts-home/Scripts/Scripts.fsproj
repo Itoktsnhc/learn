@@ -7,6 +7,11 @@
 
     <ItemGroup>
         <Compile Include="Library.fs" />
+        <None Include="StyleTransfer.fsx" />
+        <Content Include="mosaic-8.onnx">
+          <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+        </Content>
+        <Content Include="forest.JPG" />
     </ItemGroup>
 
 </Project>
