@@ -1,0 +1,22 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+Project("{F2A71F9B-5D33-465A-A702-920D77279786}") = "api-demo", "api-demo\api-demo.fsproj", "{55E7DB1C-6034-48BD-91CB-63F5608D844F}"
+EndProject
+Project("{F2A71F9B-5D33-465A-A702-920D77279786}") = "api-core", "api-core\api-core.fsproj", "{A9AC4476-B67F-4DD6-AB26-41E8FA56D4B1}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{55E7DB1C-6034-48BD-91CB-63F5608D844F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{55E7DB1C-6034-48BD-91CB-63F5608D844F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{55E7DB1C-6034-48BD-91CB-63F5608D844F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{55E7DB1C-6034-48BD-91CB-63F5608D844F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A9AC4476-B67F-4DD6-AB26-41E8FA56D4B1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A9AC4476-B67F-4DD6-AB26-41E8FA56D4B1}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A9AC4476-B67F-4DD6-AB26-41E8FA56D4B1}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A9AC4476-B67F-4DD6-AB26-41E8FA56D4B1}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+EndGlobal
