@@ -11,13 +11,13 @@ type StateFilter =
   |NotCompleted
 
 type Todo = {
-  Id : int
+  Id : Guid
   Description : string
   Completed : bool
 }
 
 type TodoBeingEdited = {
-  Id: int
+  Id: Guid
   Description: string
 }
 
@@ -31,11 +31,11 @@ type State = {
 type Msg =
   | SetNewTodo of string
   | AddNewTodo
-  | DeleteTodo of int
-  | ToggleCompleted of int
+  | DeleteTodo of Guid
+  | ToggleCompleted of Guid
   | CancelEdit
   | ApplyEdit
-  | StartEditingTodo of int
+  | StartEditingTodo of Guid
   | SetEditedDescription of string
   | ChangeFilter of StateFilter
 
@@ -43,8 +43,9 @@ type Msg =
 let init() = {
   Filter= All
   TodoList = [
-    { Id = 1; Description = "Learn F#"; Completed = false }
-    { Id = 2; Description = "Learn Elmish"; Completed = true }
+    { Id = Guid.NewGuid(); Description = "Learn C#"; Completed = true }
+    { Id = Guid.NewGuid(); Description = "Learn F#"; Completed = false }
+    { Id = Guid.NewGuid(); Description = "Learn Elmish"; Completed = false }
   ]
   NewTodo = ""
   TodoBeingEdited = None
@@ -59,16 +60,8 @@ let update (msg: Msg) (state: State) =
       state
 
   | AddNewTodo ->
-      let nextTodoId =
-        match state.TodoList with
-        | [ ] -> 1
-        | elems ->
-            elems
-            |> List.maxBy (fun todo -> todo.Id)
-            |> fun todo -> todo.Id + 1
-
       let nextTodo =
-        { Id = nextTodoId
+        { Id = Guid.NewGuid()
           Description = state.NewTodo
           Completed = false }
 
@@ -201,7 +194,7 @@ let renderTodo (todo: Todo) (dispatch: Msg -> unit) =
   ]
 
 
-let renderEditForm (todoBeingEdited: TodoBeingEdited) (dispatch: Msg -> unit) =
+let renderEditForm (todoBeingEdited: TodoBeingEdited) (todo: Todo) (dispatch: Msg -> unit) =
   div [ "box" ] [
     div [ "field is-grouped" ] [
       div [ "control is-expanded" ] [
@@ -214,10 +207,13 @@ let renderEditForm (todoBeingEdited: TodoBeingEdited) (dispatch: Msg -> unit) =
 
       div [ "control"; "buttons" ] [
         Html.button [
-          prop.classes [ "button"; "is-primary"]
+          prop.className [ true ,"button"; true,"is-primary"; ]
+          prop.disabled (todo.Description = todoBeingEdited.Description)
           prop.onClick (fun _ -> dispatch ApplyEdit)
           prop.children [
-            Html.i [ prop.classes ["fa"; "fa-save" ] ]
+            Html.i [ 
+              prop.className [true,"fa"; true,"fa-save";]
+            ]
           ]
         ]
 
@@ -270,7 +266,7 @@ let todoList (state: State) (dispatch: Msg -> unit) =
       for todo in state.TodoList|>List.filter (fun x ->filterOut state x) ->
         match state.TodoBeingEdited with
         | Some todoBeingEdited when todoBeingEdited.Id = todo.Id ->
-            renderEditForm todoBeingEdited dispatch
+            renderEditForm todoBeingEdited todo dispatch
         | otherwise ->
             renderTodo todo dispatch
     ]
