@@ -1,0 +1,33 @@
+on: [push, pull_request]
+
+name: ZeroToProd
+
+jobs:
+  check_and_test:
+    name: CheckAndTest
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: ./learn-rust/zero2prod
+    steps:
+      - name: Checkout sources
+        uses: actions/checkout@v2
+
+      - name: Install stable toolchain
+        uses: actions-rs/toolchain@v1
+        with:
+          profile: minimal
+          toolchain: stable
+          override: true
+
+      - name: Run cargo check
+        uses: actions-rs/cargo@v1
+        continue-on-error: false # WARNING: only for this example, remove it!
+        with:
+          command: check
+
+      - name: Run cargo test
+        uses: actions-rs/cargo@v1
+        continue-on-error: false # WARNING: only for this example, remove it!
+        with:
+          command: test
