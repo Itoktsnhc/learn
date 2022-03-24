@@ -6,9 +6,6 @@ jobs:
   check_and_test:
     name: CheckAndTest
     runs-on: ubuntu-latest
-    defaults:
-      run:
-        working-directory: "./learn-rust/zero2prod"
     steps:
       - name: Checkout sources
         uses: actions/checkout@v2
@@ -25,9 +22,11 @@ jobs:
         continue-on-error: false # WARNING: only for this example, remove it!
         with:
           command: check
+          args: --manifest-path learn-rust/zero2prod/Cargo.toml
 
       - name: Run cargo test
         uses: actions-rs/cargo@v1
         continue-on-error: false # WARNING: only for this example, remove it!
         with:
           command: test
+          args: --manifest-path learn-rust/zero2prod/Cargo.toml
