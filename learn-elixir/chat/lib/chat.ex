@@ -1,18 +1,6 @@
 defmodule Chat do
-  @moduledoc """
-  Documentation for `Chat`.
-  """
-
-  @doc """
-  Hello world.
-
-  ## Examples
-
-      iex> Chat.hello()
-      :world
-
-  """
-  def hello do
-    :world
+  use Application
+  def start(_type,_args) do
+    Chat.Supervisor.start_link()
   end
 end
