@@ -15,7 +15,8 @@ defmodule PlugEx.MixProject do
   def application do
     [
       extra_applications: [:logger],
-      mod: {PlugEx, []}
+      mod: {PlugEx, []},
+      env: [cowboy_port: 8000]
     ]
   end
 
