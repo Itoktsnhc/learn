@@ -350,3 +350,6 @@ MigrationBackup/
 .ionide/
 .idea
 learn-rust/zero2prod/target
+
+learn-elixir/*/_build
+learn-elixir/*/deps
