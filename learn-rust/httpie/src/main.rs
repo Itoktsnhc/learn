@@ -119,7 +119,7 @@ async fn print_headers(resp: &Response) -> Result<()> {
 
 async fn print_body(m: Option<Mime>, body: &str) -> Result<()> {
     match m {
-        Some(v) if v == mime::APPLICATION_JSON => print_syntect(body, "json"),
+        Some(v) if v == mime::APPLICATION_JSON || v == => print_syntect(body, "json"),
         Some(v) if v == mime::TEXT_HTML => print_syntect(body, "html"),
         _ => println!("{}", body),
     }

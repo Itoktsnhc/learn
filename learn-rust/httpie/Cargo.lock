@@ -314,7 +314,7 @@ dependencies = [
  "clap",
  "colored",
  "jsonxf",
- "mime",
+ "mime_typed",
  "reqwest",
  "syntect",
  "tokio",
@@ -471,6 +471,12 @@ name = "mime"
 version = "0.3.16"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "2a60c7ce501c71e03a9c9c0d35b861413ae925bd979cc7a4e30d060069aaac8d"
+
+[[package]]
+name = "mime_typed"
+version = "0.1.7"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "0496b9f94b94f3ff411b45eecb188cac129f615cdcb08f852f3d7f9261e8826e"
 
 [[package]]
 name = "miniz_oxide"
