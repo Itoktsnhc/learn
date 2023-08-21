@@ -1,7 +1,0 @@
-PUT  http://localhost:5000/api/customers HTTP/1.1
-Content-Type: application/json
- 
-{
-    "name":"James",
-    "address":"9 3/4"
-}
