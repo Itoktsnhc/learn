@@ -1,7 +1,11 @@
 use std::{
     collections::{BTreeSet, HashMap, HashSet},
-    fmt::{Display, Debug},
+    fmt::{Debug, Display},
 };
+use std::borrow::Cow;
+use std::cell::{Cell, RefCell};
+use std::fmt::{format, Formatter};
+use std::sync::Mutex;
 
 fn collection_map() {
     let book_collection = vec!["L'Allemagne Moderne", "Lep", "Lep", "Lep", "Lep"];
@@ -204,7 +208,10 @@ struct Cat {
 
 impl Debug for Cat {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        f.debug_struct("Cat").field("name", &self.name).field("age", &self.age).finish()
+        f.debug_struct("Cat")
+            .field("name", &self.name)
+            .field("age", &self.age)
+            .finish()
     }
 }
 
@@ -216,3 +223,289 @@ fn trait_basics_2() {
     };
     println!("Mr . Mantle is  a {mr_mantle:?}");
 }
+
+#[derive(Debug)]
+struct Wizard {
+    health: i32,
+}
+
+#[derive(Debug)]
+struct Ranger {
+    health: i32,
+}
+
+trait FightClose: Debug {
+    fn attack_with_sword(&self, opponent: &mut Monster) {
+        opponent.take_damage(2);
+        println!(
+            "You attack with your sword. Your opponent now has {} health left. You are now at: {:?}", // We can now print self with {:?} because we have Debug
+            opponent.health, &self
+        );
+    }
+    fn attack_with_hand(&self, opponent: &mut Monster) {
+        opponent.take_damage(2);
+        println!(
+            "You attack with your hand. Your opponent now has {} health left. You are now at: {:?}", // We can now print self with {:?} because we have Debug
+            opponent.health, &self
+        );
+    }
+}
+
+impl FightClose for Wizard {}
+
+impl FightClose for Ranger {}
+
+trait FightFromDistance: Debug {
+    fn attack_with_bow<T: MonsterBehavior>(&self, opponent: &mut T, distance: u32) {
+        println!("You attack with a rock!");
+        if distance < 10 {
+            opponent.take_damage(10);
+        } else {
+            println!("Too far away!");
+        }
+        opponent.display_self();
+    }
+    fn attack_with_rock<T: MonsterBehavior>(&self, opponent: &mut T, distance: u32) {
+        println!("You attack with a rock!");
+        if distance < 3 {
+            opponent.take_damage(4);
+        } else {
+            println!("Too far away!");
+        }
+        opponent.display_self();
+    }
+}
+
+impl FightFromDistance for Ranger {}
+
+trait MonsterBehavior: Debug {
+    fn take_damage(&mut self, damage: i32);
+    fn display_self(&self) {
+        println!("The monster is now: {self:?}");
+    }
+}
+
+#[derive(Debug)]
+struct Monster {
+    health: i32,
+}
+
+impl MonsterBehavior for Monster {
+    fn take_damage(&mut self, damage: i32) {
+        self.health -= damage;
+    }
+}
+
+#[test]
+fn test_complex_trait() {
+    let radagast = Wizard { health: 60 };
+    let aragorn = Ranger { health: 80 };
+    let mut uruk_hai = Monster { health: 90 };
+    radagast.attack_with_hand(&mut uruk_hai);
+    aragorn.attack_with_bow(&mut uruk_hai, 8);
+
+    let new_vec = (1..).take(10).collect::<Vec<i32>>();
+    // Or you can write it like this:
+    // let new_vec: Vec<i32> = (1..).take(10).collect();
+    println!("{new_vec:?}");
+}
+
+#[derive(Debug, Clone)]
+struct BookCollection(Vec<String>);
+
+#[derive(Debug)]
+struct Library {
+    name: String,
+    books: BookCollection,
+}
+
+impl Library {
+    fn add_book(&mut self, book: &str) {
+        self.books.0.push(book.to_string());
+    }
+
+    fn new(name: &str) -> Self {
+        Self {
+            name: name.to_string(),
+            books: BookCollection(Vec::new()),
+        }
+    }
+    fn get_books(&self) -> BookCollection {
+        self.books.clone()
+    }
+}
+
+impl Iterator for BookCollection {
+    type Item = String;
+
+    fn next(&mut self) -> Option<Self::Item> {
+        match self.0.pop() {
+            Some(book) => {
+                println!("Accessing book: {book}");
+                Some(book)
+            }
+            None => None,
+        }
+    }
+}
+
+#[test]
+fn test_iterator_func() {
+    let mut my_library = Library::new("Calgary");
+    my_library.add_book("The Doom of the Darksword");
+    my_library.add_book("Demian - die Geschichte einer Jugend");
+    my_library.add_book("구운몽");
+    my_library.add_book("吾輩は猫である");
+    for item in my_library.get_books() {
+        println!("{}", item);
+    }
+}
+
+//--- Closures
+#[test]
+fn closures_main() {
+    let num_vec = vec![2, 4, 6];
+    let double_vec = num_vec
+        .iter()
+        .map(|num| num * 2)
+        .collect::<Vec<i32>>();
+    println!("{:?}", double_vec);
+    let some_keys = vec![0, 1, 2, 3, 4, 5]; // a Vec<i32>
+    let some_values = vec!["zero", "one", "two", "three", "four", "five"]; // a Vec<&str>
+    let number_word_hashmap = some_keys
+        .into_iter() // now it is an iter
+        .zip(some_values.into_iter())
+        .collect::<HashMap<_, _>>();
+    println!(
+        "For key {} we get {}.",
+        2,
+        number_word_hashmap.get(&2).unwrap()
+    );
+}
+
+//---LifeTimes and interior mutability
+#[test]
+fn str_main() {
+    let my_str = String::from("I am a string");
+    prints_str(&my_str);
+}
+
+fn prints_str(mystr: &str) {
+    println!("{mystr}")
+}
+
+
+//10.2 Lifetime annotations
+#[test]
+fn life_time_main() {
+    let my_city = City {
+        name: "Ichinomiya",
+        date_founded: 2024,
+    };
+}
+
+
+#[allow(unused)]
+#[derive(Debug)]
+struct City<'a> {
+    name: &'a str,
+    date_founded: u32,
+}
+
+struct Adventurer<'a> {
+    name: &'a str,
+    hit_points: u32,
+}
+
+impl Adventurer<'_> {
+    fn take_damage(&mut self) {
+        self.hit_points -= 20;
+        println!("{} has {} hit points left!", self.name, self.hit_points);
+    }
+}
+
+impl std::fmt::Display for Adventurer<'_> {
+    fn fmt(&self, f: &mut Formatter<'_>) -> std::fmt::Result {
+        write!(f, "{} has {} hit points.", self.name, self.hit_points)
+    }
+}
+
+struct PhoneModel {
+    company_name: String,
+    model_name: String,
+    screen_size: f32,
+    memory: usize,
+    date_issued: u32,
+    on_sale: Cell<bool>,
+}
+
+#[derive(Debug)]
+struct User {
+    id: u32,
+    year_registered: u32,
+    username: String,
+    active: RefCell<bool>,
+}
+
+
+//10.3 interior mutations
+#[test]
+fn interior_mutations_main() {
+    let super_phone_3000 = PhoneModel {
+        company_name: "YY Electronics".to_string(),
+        model_name: "Super Phone 3000".to_string(),
+        screen_size: 7.5,
+        memory: 4000000,
+        date_issued: 2023,
+        on_sale: Cell::new(true),
+    };
+    super_phone_3000.on_sale.set(false);
+    println!("{:?}", super_phone_3000.on_sale);
+
+    let u1 = User {
+        id: 1,
+        year_registered: 2020,
+        username: "User 1".to_string(),
+        active: RefCell::new(true),
+    };
+    println!("{:?}", u1.active);
+    let borrow_one = u1.active.borrow_mut();
+    //let borrow_two = u1.active.borrow_mut();
+}
+
+#[test]
+fn mutex_main() {
+    let my_mutex = Mutex::new(0);
+    for _ in 0..100 {
+        *my_mutex.lock().unwrap() += 1; // locks and unlocks 100 times
+    }
+    println!("{:?}", my_mutex);
+}
+
+
+// 11
+
+/// 11.4 Cow
+#[derive(Debug)]
+enum LocalError {
+    TooBig,
+    ToSmall,
+}
+
+#[derive(Debug)]
+struct ErrorInfo {
+    error: LocalError,
+    message: String,
+}
+
+fn generate_message(message: &'static str, error_info: Option<ErrorInfo>) -> Cow<'static, str> {
+    match error_info {
+        None => message.into(),
+        Some(info) => format!("{message}: {info:?}").into(),
+    }
+}
+
+
+
+
+
