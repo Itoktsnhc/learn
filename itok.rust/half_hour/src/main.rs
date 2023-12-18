@@ -5,6 +5,8 @@ use std::{
 use std::borrow::Cow;
 use std::cell::{Cell, RefCell};
 use std::fmt::{format, Formatter};
+use std::ptr::null;
+use std::rc::Rc;
 use std::sync::Mutex;
 
 fn collection_map() {
@@ -398,7 +400,7 @@ fn prints_str(mystr: &str) {
 //10.2 Lifetime annotations
 #[test]
 fn life_time_main() {
-    let my_city = City {
+    let my_city = CityLifeTime {
         name: "Ichinomiya",
         date_founded: 2024,
     };
@@ -407,7 +409,7 @@ fn life_time_main() {
 
 #[allow(unused)]
 #[derive(Debug)]
-struct City<'a> {
+struct CityLifeTime<'a> {
     name: &'a str,
     date_founded: u32,
 }
@@ -504,6 +506,58 @@ fn generate_message(message: &'static str, error_info: Option<ErrorInfo>) -> Cow
         Some(info) => format!("{message}: {info:?}").into(),
     }
 }
+
+#[test]
+fn test_cow() {
+    let msg1 = generate_message("Every Thing is Fine", None);
+    let msg2 = generate_message("Got an Error", Some(ErrorInfo {
+        error: LocalError::TooBig,
+        message: "It was too big".to_string(),
+    }));
+
+    for msg in [msg1, msg2] {
+        match msg {
+            Cow::Borrowed(msg) => {
+                println!("Borrowed message, did not need an allocation:\n {msg}");
+            }
+            Cow::Owned(msg) => {
+                println!("Owned message because we needed an allocation:\n {msg}")
+            }
+        }
+    }
+}
+
+/// 11.5 Rc
+#[derive(Debug)]
+struct City {
+    name: Rc<String>,
+    population: u32,
+    city_history: Rc<String>,
+}
+
+#[derive(Debug)]
+struct CityData {
+    names: Vec<Rc<String>>,
+    histories: Vec<Rc<String>>,
+}
+
+#[test]
+fn test_rc_in_pic() {
+    let calgary_name = Rc::new("Calgary".to_string());
+    let calgary_history = Rc::new("Calgary began as a fort called Fort Calgary that...".to_string());
+    let calgary = City {
+        name: Rc::clone(&calgary_name),
+        population: 1_200_200,
+        city_history: Rc::clone(&calgary_history),
+    };
+    let canada_cities = CityData {
+        names: vec![Rc::clone(&calgary.name)],
+        histories: vec![Rc::clone(&calgary.city_history)],
+    };
+    println!("Calgary's history is: {}", calgary.city_history);
+    println!("{}", Rc::strong_count(&calgary.city_history));
+}
+
 
 
 
