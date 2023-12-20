@@ -559,6 +559,82 @@ fn test_rc_in_pic() {
 }
 
 
+//11.6
+#[test]
+fn spawn_new_thread() {
+    let handle = std::thread::spawn(|| { println!("I am printing something") });
+    handle.join().expect("TODO: panic message");
+    println!("new Main");
+}
+
+#[test]
+fn test_fn_closures() {
+    //Fn: takes by value
+    let my_str = String::from("I will go into the closure");
+    let my_closeure = || println!("{my_str}");
+    my_closeure();
+    my_closeure();
+}
+
+#[test]
+fn test_fn_mut_closure() {
+    let mut my_str = String::from("raw Str");
+    let mut my_closure = || {
+        my_str.push_str(" now");
+        println!("{my_str}");
+    };
+    my_closure();
+    my_closure();
+}
+
+#[test]
+fn test_fn_once_closure() {
+    let my_vec: Vec<i32> = vec![8, 9, 10];
+    let my_closure = || {
+        my_vec
+            .into_iter()
+            .map(|x| x as u8)
+            .map(|x| x * 2)
+            .collect::<Vec<u8>>()
+    };
+    let new_vec = my_closure();
+    println!("{:?}", new_vec);
+}
+
+#[test]
+fn test_move_kwd() {
+    let my_str = String::from("Can I go inside the thread");
+    let handle = std::thread::spawn(move || {
+        println!("{my_str}");
+    });
+    handle.join();
+}
+
+#[test]
+fn test_multi_thread_closure() {
+    let mut join_vec = vec![];
+    for num in 0..10 {
+        join_vec.push(std::thread::spawn(move || {
+            println!("I am printing something: {num}")
+        }));
+    }
+    for handle in join_vec {
+        handle.join().unwrap();
+    }
+}
+
+/// # 12
+/// Closures in functions
+// Impl trait - Another way to use generics
+// Arc - Like Rc, but thread safe
+// Scoped threads - Threads that only live inside a scope
+// Channels - Sending messages even across threads
+/// ## 12.1 Closures as arguments
+
+
+
+
+
 
 
 
